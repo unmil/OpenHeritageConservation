@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+	<!-- Testing -->
+	<meta charset="utf-8">
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/jquery/jquery.widget.min.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+	<script src="js/metro/metro-loader.js"></script>
+	<script src="js/docs.js"></script>
+	<link rel="stylesheet" href="css/metro-bootstrap.css">
+	<link rel="stylesheet" href="css/docs.css">
+	<link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
+	<title>Welcome!</title>
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-56887702-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<script>
+		var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+		    // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+		var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+		var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+		    // At least Safari 3+: "[object HTMLElementConstructor]"
+		var isChrome = !!window.chrome && !isOpera;              // Chrome 1+
+		var isIE = /*@cc_on!@*/false || !!document.documentMode;   // At least IE6
+		
+		if(!(isChrome || isSafari || isIE)){
+			alert("To Make Sure the Best Experience, Please Use Chrome or Safari. Thank You!")
+		}
+		</script>
+
+	<style type="text/css">
+		.introduction {
+			color: white;
+		}
+	</style>
+</head>
+
+<body class="metro">
+	<header class="bg-texasblue" data-load="header.html"></header>
+	<div style="background: url(images/Alamo.jpg) top left no-repeat; background-size: cover; height: 800px;">
+		<div class="container" style="padding: 50px 20px">
+			
+			<h1 class="fg-white">The Alamo conservation project</h1>
+			<h2 class="fg-white">
+                    is developing technology to support digital record <br>keeping of the conservation efforts underway at <br>the Alamo. We are developing a Web-based conservation<br>management system based on the LAMP architecture<br>and open conservation standards,<br>such as CIDOC-CRM.
+                </h2>
+		</div>
+	</div>
+	<footer class="bg-texasblue" data-load="footer.html"></footer>
+</body>
+
+</html>
