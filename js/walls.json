@@ -167,7 +167,7 @@
                 ]
             },
             "properties": {
-				"Wall": "A"
+				"Wall": "A",
                   		"ZoomifyFiles": "images/base-layer-zoomify/A-Bay1south/A-bay1south_img/"
 
 			}
@@ -202,8 +202,8 @@
                 ]
             },
             "properties": {
-				"Wall": "B"
-                  		"zoomifyFiles": "images/base-layer-zoomify/A-Bay1south/A-bay1south_img/"
+				"Wall": "B",
+                  		"ZoomifyFiles": "images/base-layer-zoomify/B-Bay2_South/B-Bay2SouthZoomify_img/"
 			}
         },
         {
@@ -236,7 +236,8 @@
                 ]
             },
             "properties": {
-				"Wall": "C"
+				"Wall": "C",
+                  		"ZoomifyFiles": "images/base-layer-zoomify/C-Bay3south/C-Bay3south_img/"
 
 			}
         },
@@ -339,7 +340,8 @@
                 ]
             },
             "properties": {
-				"Wall": "F"
+				"Wall": "F",
+                  		"ZoomifyFiles": "images/base-layer-zoomify/F-TranseptSouth/F-TranceptSouth_img/"
 
 			}
         },

@@ -15,7 +15,7 @@ $(document).ready(function () {
 		}),
 		style: new ol.style.Style({
 			fill: new ol.style.Fill({
-				color:"#F53D71",
+				color: "#0AFA5E",
 				opacity: 1
 			}),
 			stroke: new ol.style.Stroke({
@@ -35,10 +35,11 @@ $(document).ready(function () {
 		var vectorlayer_features = vector_layer.getSource().getFeatures();
 		vectorlayer_features.forEach(function (afeature) {
 
-			if (afeature.get("Wall") === "A" || afeature.get("Wall") === "B"|| afeature.get("Wall") === "C"|| afeature.get("Wall") === "F") {
-				afeature.setStyle(new ol.style.Style({
-					fill: new ol.style.Fill({
-						color: "#0AFA5E",
+			if (afeature.get("ZoomifyFiles") === undefined) {
+				afeature.setStyle(
+					new ol.style.Style({
+						fill: new ol.style.Fill({
+						color:"#F53D71",
 						opacity: 1
 					}),
 					stroke: new ol.style.Stroke({
@@ -118,7 +119,7 @@ $(document).ready(function () {
 		selected_features.on('add', function (event) {
 			var feature = event.element;
 			console.log(feature.get("Wall"));
-			if (feature.get("Wall") === "A") {
+			if (feature.get("ZoomifyFiles") != undefined) {
 				window.location.href = "single_wall.html?wall=" + feature.get("Wall");
 			}
 		});
@@ -131,8 +132,10 @@ $(document).ready(function () {
             infooverlay.setPosition([500,400]);
             //feature.getGeometry().getLastCoordinate()
             wall_name.html(feature.get("Wall"));
+	   if (feature.get("ZoomifyFiles") != undefined) {
             wall_pic.attr("src","images/base-layer-images/"+feature.get("Wall")+".jpg"); 
             console.log("images/base-layer-images/"+feature.get("Wall")+".jpg");         
+            }
 		});
 		hovered_features.on('remove',function(event){
 			
