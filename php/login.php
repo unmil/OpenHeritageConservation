@@ -33,10 +33,10 @@ if($username == "admin" && $psw == "admin"){
 	$_SESSION['id']=1;
 	session_write_close();
 	echo "1";
-	// echo "<script>location.href='/AlamoConservation/index_view.html';</script>";
+	// echo "<script>location.href='map.html';</script>";
 
 }else{
-  // echo "<script>location.href='/AlamoConservation/login.html';</script>";
+  // echo "<script>location.href='login.html';</script>";
   echo "0";
   }
 
