@@ -1,9 +1,40 @@
 $(document).ready(function () {
+	$.getJSON('http://saab.ischool.utexas.edu/DevAlamoConservation/js/walls.json', function(jd) {
+		//Confirm the type of wall (A - F), client wants to access, decode it encase weird string happen			
+		var givenWallQuery = decodeURIComponent(window.location.search.substring(1)); // Expected to query string like (wall="Anything")
+		var wallType = givenWallQuery.split('=')[1];
+		var wallURL = getURL(jd.features,wallType);
+
+//		wallURL = 'images/base-layer-zoomify/A-Bay1south/A-bay1south_img/'		
+		beginOperation(wallURL);	
+						
+	});
+
+	/*Get the correct URL address of the given wall from JSON*/
+	function getURL(jsonFeautres,wallType){		
+//		console.log(jsonFeautres[4]['properties']);
+		for(i = 0; i < jsonFeautres.length; i++){
+			//Checking whether
+			if(jsonFeautres[i]['properties'].Wall == wallType){
+				if(typeof jsonFeautres[i]['properties'].ZoomifyFiles != 'undefined'){
+					return jsonFeautres[i]['properties'].ZoomifyFiles
+				}
+			}
+		}
+	}
+
+	
+
+	function beginOperation(wallURL){
+
 	var imgWidth = 22346;
 	var imgHeight = 31438;
-	var url = 'images/base-layer-zoomify/A-Bay1south/A-bay1south_img/';
+	//This is the reason why single_wall was pre-laoding wall_A
+	var url = wallURL;	
+
 	var crossOrigin = 'anonymous';
 	var imgCenter = [imgWidth / 2, -imgHeight / 2];
+	
 	/**
 	 * Elements that make up the popup.
 	 */
@@ -20,6 +51,8 @@ $(document).ready(function () {
 	var typeHasActor = ["Wood", "Nail", "Concrete Sample", "Incised Line", "Pigment", "Humidity", "Grafitti"];
 	var typeHasColor = ["Pigment", 'Efflorescence'];
 	var typeHasPercentage = ["Humidity"];
+
+
 	/**
 	 * Add a click handler to hide the popup.
 	 * @return {boolean} Don't follow the href.
@@ -50,12 +83,14 @@ $(document).ready(function () {
 		target: document.getElementById('mouse-position'),
 		undefinedHTML: '&nbsp;'
 	});
+
 	var source = new ol.source.Zoomify({
 		url: url,
 		size: [imgWidth, imgHeight],
 		crossOrigin: crossOrigin,
 		projection: proj,
 	});
+
 	var vector_layer = new ol.layer.Vector({
 		name: 'my_vectorlayer',
 		source: new ol.source.GeoJSON({
@@ -202,6 +237,9 @@ $(document).ready(function () {
 		map.removeInteraction(draw_interaction);
 		addDrawInteraction();
 	};
+
+	
+
 
 	function addModifyInteraction() {
 		$("#popup-content").hide();
@@ -691,6 +729,7 @@ var myJSONString = JSON.stringify(data);
 		});
 	}).prop('disabled', !$.support.fileInput)
 		.parent().addClass($.support.fileInput ? undefined : 'disabled');
+
 	//validate login
 	$.ajax({
 		type: "post",
@@ -712,5 +751,9 @@ var myJSONString = JSON.stringify(data);
 			}
 		}
 	});
+
+	}
+
 })
+
 
