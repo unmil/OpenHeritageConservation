@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	$.getJSON('http://saab.ischool.utexas.edu/DevAlamoConservation/js/walls.json', function(jd) {
+	$.getJSON('./js/walls.json', function(jd) {
 		//Confirm the type of wall (A - F), client wants to access, decode it encase weird string happen			
 		var givenWallQuery = decodeURIComponent(window.location.search.substring(1)); // Expected to query string like (wall="Anything")
 		var wallType = givenWallQuery.split('=')[1];

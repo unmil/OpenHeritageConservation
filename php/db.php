@@ -21,6 +21,7 @@ catch (Exception $exception) {
     var_dump($excerption->getMessage());
 }
 $db         = $mongoClient->selectDB($db_name);
+console.log( "Unmil test..." . $db);
 $collection = $db->selectCollection($walls_collection);
 try {
     
