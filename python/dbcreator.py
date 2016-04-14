@@ -3,6 +3,9 @@ from pymongo import MongoClient
 import bson.objectid
 import bcrypt
 import datetime
+import argparse
+import json
+from pprint import pprint
 '''Define classes'''
 
 
@@ -25,136 +28,32 @@ class User(Document):
     role = StringField()
 
 
-def init():
-    ls = [
-        {
-            "name": "A",
-            "leftName": "B",
-            "rightName": "R",
-            "imageLayersPath": "A-Bay1south/A-bay1south_img",
-            "thumbnailPath": "A.jpg"
-        },
-        {
-            "name": "B",
-            "leftName": "C",
-            "rightName": "A",
-            "imageLayersPath": "B-Bay2_South/B-Bay2SouthZoomify_img",
-            "thumbnailPath": "B.jpg"
-        },
-        {
-            "name": "C",
-            "leftName": "D",
-            "rightName": "B",
-            "imageLayersPath": "C-Bay3south/C-Bay3south_img",
-            "thumbnailPath": "C.jpg"
-        },
-        {
-            "name": "D",
-            "leftName": "E",
-            "rightName": "C",
-            "imageLayersPath": "D-Bay4_South",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "E",
-            "leftName": "F",
-            "rightName": "D",
-            "imageLayersPath": "E-TranseptSouthwest",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "F",
-            "leftName": "G",
-            "rightName": "E",
-            "imageLayersPath": "F-TranseptSouth/F-TranceptSouth_img",
-            "thumbnailPath": "F.jpg"
-        },
-        {
-            "name": "G",
-            "leftName": "H",
-            "rightName": "F",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "H",
-            "leftName": "I",
-            "rightName": "G",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "I",
-            "leftName": "J",
-            "rightName": "H",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "J",
-            "leftName": "I",
-            "rightName": "K",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "K",
-            "leftName": "J",
-            "rightName": "L",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "L",
-            "leftName": "M",
-            "rightName": "K",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "M",
-            "leftName": "N",
-            "rightName": "L",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "N",
-            "leftName": "O",
-            "rightName": "M",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "O",
-            "leftName": "P",
-            "rightName": "N",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "P",
-            "leftName": "Q",
-            "rightName": "O",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "Q",
-            "leftName": "R",
-            "rightName": "P",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        },
-        {
-            "name": "R",
-            "leftName": "A",
-            "rightName": "Q",
-            "imageLayersPath": "",
-            "thumbnailPath": "placeholder-thumbnail.jpg"
-        }
-    ]
+def fileReader():
+    argumentParser = argparse.ArgumentParser(description='please insert parameters')
+    argumentParser.add_argument("-w", "--wallData", help="the wall list file name in the default folder")
+    argumentParser.add_argument("-u", "--userData", help="the user list file name in the default folder")
 
+    arguments = argumentParser.parse_args()
+
+    if arguments.wallData:
+
+        with open(arguments.wallData) as dataFile:
+            wallData = json.load(dataFile)
+
+        wall_init(wallData)
+
+
+
+    if arguments.userData:
+
+        with open(arguments.userData) as dataFile:
+            userData = json.load(dataFile)
+
+        user_init(userData)
+
+
+
+def wall_init(ls):
     dic = {}
 
     db = connect('myNewDB')
@@ -173,6 +72,23 @@ def init():
         curWall.save()
 
 
+
+
+def user_init(ls):
+    salt = bcrypt.gensalt()
+
+    for sample in ls:
+        newUser = User(
+            id = str(bson.objectid.ObjectId()),
+            username = sample["username"],
+            password = bcrypt.hashpw(str(sample["password"]), salt),
+            nickname = sample["nickname"],
+            email = sample["email"],
+            role = sample["role"],
+            creationTime = str(datetime.datetime.now())
+        )
+        newUser.save()
+
 def init_testing():
     # Result Testing
     client = MongoClient()
@@ -190,24 +106,6 @@ def init_testing():
     for i in walls:
         print i
 
-def user_add():
-    sample = {
-        "username":"admin",
-        "password":"admin",
-        "nickname":"admin",
-        "email":"admin@admin.com",
-        "role":"conservator"
-    }
-    salt = bcrypt.gensalt()
-
-    newUser = User(
-        username = sample["username"],
-        password = bcrypt.hashpw(sample["password"], salt),
-        nickname = sample["nickname"],
-        email = sample["email"],
-        role = sample["role"],
-        creationTime = str(datetime.datetime.now())
-    )
     ''' Testing
     if bcrypt.hashpw(str(sample["password"]), str(newUser.password)) == str(newUser.password):
         print("It Matches!")
@@ -216,8 +114,4 @@ def user_add():
 
     '''
 
-
-
-#init()
-#init_testing()
-user_add()
+fileReader()
