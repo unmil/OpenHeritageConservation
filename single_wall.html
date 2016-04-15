@@ -84,6 +84,7 @@
 			left: 0px;
 			position: fixed;
 			background-color: white	;
+
 		}		
 
 		/*#addButton {
@@ -107,7 +108,7 @@
 			top: 42px;	
 			position: fixed;							
 		    color: white;		    		    
-		    left: -2px;
+		    right: -2px;		    
 		}	
 
 		#button{				
@@ -117,8 +118,14 @@
 		    display: inline-block;
 		    font-size: 16px;
 		    margin: 4px 2px;
-		    cursor: pointer;		  		      
+		    cursor: pointer;
 		}	
+
+		#left-right-switch{
+			left: 0px;
+			
+		}
+
 	</style>
 
 	<title>Single Map</title>
@@ -127,6 +134,7 @@
 <body class="metro">
 	<header class="bg-emerald" data-load="header.html"></header>
 	<div id="map" class="map"></div>
+
 	<div id="popup-content">	<a href="#" id="popup-closer" class="ol-popup-closer ">X</a>
 		<form id="form" action="#" method="post">
 			<legend>Add Information</legend>
@@ -214,6 +222,14 @@
 		</div>
 	</div>	
 
+	<!-- Buttons for switching wall left and right -->
+	<div id="buttonGroup" class="btn-group">
+	  <button id="button" type="button"><</button>
+	  <button id="button" type="button">></button>		
+	</div>
+
+	
+
 	 <div class="panel" data-role="panel" id="controlpanel">
 		  <button type="button" class="panel-header">
 		  	<span class="glyphicon glyphicon-plus" 	aria-hidden="true"></span>
@@ -223,8 +239,75 @@
 		  	<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
 		  </button>	  
 
-	 	<div class="panel-content" style="display: block;"> 	 		 		
-	 	
+	 	<div class="panel-content" style="display: block;"> 
+	 		<form id="form" action="#" method="post">
+			<legend>Add Information</legend>
+			<div class="input-control select size2 type-control" id="type-control">
+				<lable>Type</lable>
+				<select id="type">
+					<option value="Select" id="option_default">Select</option>
+					<option class="type_option" value="Wood">Wood</option>
+					<option class="type_option" value="Nail">Nail</option>
+					<option class="type_option" value="Graffiti">Historical Graffiti</option>
+					<option class="type_option" value="Incised Lines">Incised Lines</option>
+					<option class="type_option" value="Efflorescence">Efflorescence</option>
+					<option class="type_option" value="Pigment">Pigment</option>
+					<option class="type_option" value="Mortar Sample">Mortar Sample</option>
+					<option class="type_option" value="Stone Sample">Stone Sample</option>
+				</select>
+			</div>
+			<div class="input-control select size2 color-control" style="display:none">
+				<lable>Color</lable>
+				<select id="color">
+					<option value="RedOchre">Red - Ochre</option>
+					<option value="RedLead">Red - Lead</option>
+					<option value="RedVermillion">Red - Vermillion</option>
+					<option value="WhiteCalcite">White - Calcite</option>
+					<option value="YellowOchre">Yellow - Ochre</option>
+					<option value="GreenEarth">Green - Earth</option>
+					<option value="Azurite">Blue - Azurite</option>
+					<option value="Smalt">Blue - Smalt</option>
+					<option value="PrussianBlue">Blue - Prussian</option>
+					<option value="Charcoal">Charcoal</option>
+					<option value="CopperLeaf">CopperLeaf</option>
+					<option value="CopperGreen">Copper Green</option>
+				</select>
+			</div>
+			<br>
+			<div class="input-control select size2 actor-control" style="display:none">
+				<lable>Actor</lable>
+				<select id="actor">
+					<option value="US Army">US Army</option>
+					<option value="Spanish Colonials">Spanish Colonials</option>
+				</select>
+			</div>
+			<br>
+			<br> <!-- <span class="btn btn-success fileinput-button">
+									 	<i class="glyphicon glyphicon-plus"></i>
+									 		<span>Add files...</span>
+			The file input field used as target for the file upload widget
+			<input id="fileupload" type="file" name="files[]" multiple>
+			</span> -->
+			<!-- The global progress bar -->
+			<!-- The container for the uploaded files -->
+			<div id="files" class="files"></div>
+			<br>
+			<lable>Created at</lable>
+			<div class="input-control text" data-role="datepicker" data-date="1900-11-01" data-format="mm/dd/yyyy" data-position="top|bottom" data-effect="none|slide|fade" style="width: 60%">
+				<input type="text" id="initialDate">	<span class="btn-date"></span>
+			</div>
+			<lable>Found at</lable>
+			<div class="input-control text" data-role="datepicker" data-date="2014-11-01" data-format="mm/dd/yyyy" data-position="top|bottom" data-effect="none|slide|fade" style="width: 60%">
+				<input type="text" id="foundDate"><span class="btn-date"></span>
+			</div>
+			<label>Notes</label>
+			<div class="input-control textarea success-state " data-role="input-control">
+				<textarea id="note"></textarea>
+			</div>	<a href="#" class="button" id="yes" style="background-color: #247b04;color: white;">Submit</a>
+			<!-- 	<button href="#"id="yes" class="button">yes</button> -->	<a href="#" class="button" id="cancel" style="background-color: #247b04;color: white;">Cancel</a>
+		</form>
+
+
 	 	</div>
 			<select id="data_type" style="display: none"></select>
 			<!-- hide delete all link to avoid easy access
