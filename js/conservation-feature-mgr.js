@@ -29,7 +29,7 @@ $(document).ready(function () {
 
 	var imgWidth = 22346;
 	var imgHeight = 31438;
-	//This is the reason why single_wall was pre-laoding wall_A
+
 	var url = wallURL;
 
 	var crossOrigin = 'anonymous';
