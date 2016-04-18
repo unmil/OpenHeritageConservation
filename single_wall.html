@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 
-<head>	
+<head>
 	<meta charset="utf-8">
 
 	<script src="OpenLayers3/build/ol.js" type="text/javascript"></script>
@@ -76,16 +76,14 @@
 		}
 		.ol-popup-closer: after {
 			content: "X";
-		}		
-
+		}
 		#controlpanel {
 			width: 230px;
 			top: 50px;
 			left: 0px;
 			position: fixed;
 			background-color: white	;
-
-		}		
+		}
 
 		/*#addButton {
 			width: 100px;
@@ -102,16 +100,16 @@
 		    font-size: 16px;
 		    margin: 4px 2px;
 		    cursor: pointer;
-		}	*/	
+		}	*/
 
-		#buttonGroup {
-			top: 42px;	
-			position: fixed;							
-		    color: white;		    		    
-		    right: -2px;		    
-		}	
+		#switchWalls {
+			top: 42px;
+			position: fixed;
+		    color: white;
+		    right: -2px;
+		}
 
-		#button{				
+		#button{
 			padding: 15px 32px;
 		    text-align: center;
 		    text-decoration: none;
@@ -119,11 +117,11 @@
 		    font-size: 16px;
 		    margin: 4px 2px;
 		    cursor: pointer;
-		}	
+		}
 
 		#left-right-switch{
 			left: 0px;
-			
+
 		}
 
 	</style>
@@ -213,22 +211,22 @@
 		<lable class="strong">Initial Date:</lable><span id="disID"></span></br>
 		<lable class="strong">Found Date:</lable><span id="disFD"></span></br>
 		<lable class="strong">Entry Date:</lable><span id="disED"></span>
-			
+
 		<br>
 		<div id="disfiles">
 			<lable class="strong">Attachment:</lable>
 			<br>
 			<a id="disfile" href="#"></a>
 		</div>
-	</div>	
-
-	<!-- Buttons for switching wall left and right -->
-	<div id="buttonGroup" class="btn-group">
-	  <button id="button" type="button"><</button>
-	  <button id="button" type="button">></button>		
 	</div>
 
-	
+	<!-- Buttons for switching wall left and right -->
+	<div id="switchWalls" class="btn-group">
+	  <button id="button" type="button"><</button>
+	  <button id="button" type="button">></button>
+	</div>
+
+
 
 	 <div class="panel" data-role="panel" id="controlpanel">
 		  <button type="button" class="panel-header">
@@ -237,11 +235,11 @@
 
 		  <button type="button" id="button">
 		  	<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
-		  </button>	  
+		  </button>
 
-	 	<div class="panel-content" style="display: block;"> 
+	 	<div class="panel-content" style="display: block;">
 	 		<form id="form" action="#" method="post">
-			<legend>Add Information</legend>
+			<legend>Type</legend>
 			<div class="input-control select size2 type-control" id="type-control">
 				<lable>Type</lable>
 				<select id="type">
@@ -303,29 +301,34 @@
 			<label>Notes</label>
 			<div class="input-control textarea success-state " data-role="input-control">
 				<textarea id="note"></textarea>
-			</div>	<a href="#" class="button" id="yes" style="background-color: #247b04;color: white;">Submit</a>
-			<!-- 	<button href="#"id="yes" class="button">yes</button> -->	<a href="#" class="button" id="cancel" style="background-color: #247b04;color: white;">Cancel</a>
+				<a href="#"><label style="text-align: center;">Additioanl File</label></a>
+			</div>
+			<!-- <a href="#" class="button" id="yes" style="background-color: #247b04;color: white;">Submit</a> -->
+			<div style="text-align:center;"><a href="#" class="button" id="yes" style="width:100px; height:50px; line-height: 40px;">Submit</a></div>
+			<!-- 	<button href="#"id="yes" class="button">yes</button> -->
+
+
+
 		</form>
-
-
 	 	</div>
+
 			<select id="data_type" style="display: none"></select>
 			<!-- hide delete all link to avoid easy access
-			<!-- <div id="delete" style="text-decoration:underline;cursor:pointer">Delete all features</div> -->
-	 </div> 
-		
+			<div id="delete" style="text-decoration:underline;cursor:pointer">Delete all features</div>-->
+	 </div>
 
 
 
 
-<!-- 
-	<div id="buttonGroup" class="btn-group" role="group" aria-label="...">
+
+<!--
+	<div id="switchWalls" class="btn-group" role="group" aria-label="...">
 	  <button id="button" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	  <button id="button" type="button"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>	  
+	  <button id="button" type="button"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
 	</div>
  -->
 	 <!-- <div class="panel" data-role="panel" id="controlpanel"> -->
-		<!-- <div class="panel-header bg-darkRed fg-white">Action</div>		
+		<!-- <div class="panel-header bg-darkRed fg-white">Action</div>
 
 		<div class="panel-content" style="display: block;"> <span id="mouse-position">&nbsp;</span>
 			<div>
@@ -357,9 +360,9 @@
 			</select> -->
 			<!-- hide delete all link to avoid easy access
 			<!-- <div id="delete" style="text-decoration:underline;cursor:pointer">Delete all features</div> -->
-		<!-- </div> 
+		<!-- </div>
 	</div> -->
-	
+
 
 
 
@@ -388,5 +391,3 @@
 </body>
 
 </html>
-
-
