@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="css/metro-bootstrap.css">
 
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
 
 	<link rel="stylesheet" href="css/docs.css">
 	<link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
@@ -42,6 +42,21 @@
 	<link rel="stylesheet" href="OpenLayers3/css/ol.css" type="text/css">
 
 	<style type="text/css">
+		#features-border{
+			border-bottom: solid;
+			border-bottom-color: lightgrey;
+			border-width: thin;
+			overflow: auto;
+			height: 15em;
+			width: 214px;
+			padding-left: 2px;
+		}
+
+		#features-list{
+			height: 15em;
+			width: 196px;
+		}
+
 		.map {
 			padding-top: 5px;
 			width: 100%;
@@ -226,23 +241,72 @@
 	  <button id="button" type="button">></button>
 	</div>
 
+ 	<div class="panel" data-role="panel" id="controlpanel">
 
-
-	 <div class="panel" data-role="panel" id="controlpanel">
+			<!-- Add button -->
 		  <button type="button" class="panel-header">
 		  	<span class="glyphicon glyphicon-plus" 	aria-hidden="true"></span>
 		  </button>
 
+			<!-- Search button -->
 		  <button type="button" id="button">
 		  	<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
 		  </button>
 
+		<!-- Panel to determine what happen when user slided down -->
 	 	<div class="panel-content" style="display: block;">
 	 		<form id="form" action="#" method="post">
 			<legend>Type</legend>
+
 			<div class="input-control select size2 type-control" id="type-control">
-				<lable>Type</lable>
-				<select id="type">
+
+
+			<!-- This will be a scroll view -->
+			<div id="features-border">
+			<div id="features-list">
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+				<div class="tile half"></div>
+			</div>
+
+				<!-- <select id="type">
 					<option value="Select" id="option_default">Select</option>
 					<option class="type_option" value="Wood">Wood</option>
 					<option class="type_option" value="Nail">Nail</option>
@@ -252,8 +316,12 @@
 					<option class="type_option" value="Pigment">Pigment</option>
 					<option class="type_option" value="Mortar Sample">Mortar Sample</option>
 					<option class="type_option" value="Stone Sample">Stone Sample</option>
-				</select>
+				</select> -->
+
+
 			</div>
+		</div>
+
 			<div class="input-control select size2 color-control" style="display:none">
 				<lable>Color</lable>
 				<select id="color">
