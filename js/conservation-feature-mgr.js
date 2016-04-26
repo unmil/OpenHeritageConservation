@@ -1,17 +1,17 @@
 $(document).ready(function () {
 	$.getJSON('./js/walls.json', function(jd) {
-		//Confirm the type of wall (A - F), client wants to access, decode it encase weird string happen			
+		//Confirm the type of wall (A - F), client wants to access, decode it encase weird string happen
 		var givenWallQuery = decodeURIComponent(window.location.search.substring(1)); // Expected to query string like (wall="Anything")
 		var wallType = givenWallQuery.split('=')[1];
 		var wallURL = getURL(jd.features,wallType);
 
-//		wallURL = 'images/base-layer-zoomify/A-Bay1south/A-bay1south_img/'		
-		beginOperation(wallURL);	
-						
+//		wallURL = 'images/base-layer-zoomify/A-Bay1south/A-bay1south_img/'
+		beginOperation(wallURL);
+
 	});
 
 	/*Get the correct URL address of the given wall from JSON*/
-	function getURL(jsonFeautres,wallType){		
+	function getURL(jsonFeautres,wallType){
 //		console.log(jsonFeautres[4]['properties']);
 		for(i = 0; i < jsonFeautres.length; i++){
 			//Checking whether
@@ -23,18 +23,18 @@ $(document).ready(function () {
 		}
 	}
 
-	
+
 
 	function beginOperation(wallURL){
 
 	var imgWidth = 22346;
 	var imgHeight = 31438;
-	//This is the reason why single_wall was pre-laoding wall_A
-	var url = wallURL;	
+
+	var url = wallURL;
 
 	var crossOrigin = 'anonymous';
 	var imgCenter = [imgWidth / 2, -imgHeight / 2];
-	
+
 	/**
 	 * Elements that make up the popup.
 	 */
@@ -52,6 +52,18 @@ $(document).ready(function () {
 	var typeHasColor = ["Pigment", 'Efflorescence'];
 	var typeHasPercentage = ["Humidity"];
 
+	var features = document.getElementById('features-list');
+	var features_list = features.getElementsByClassName('tile half')
+
+	// var container = [];
+	// for(var i = 0; i < features.getElementsByClassName('tile half').length; i++){
+	// 	var feature_value = features.getElementsByClassName('tile half')[i].getAttribute('value');
+	// 	container[i] = feature_value;
+	// 	features.getElementsByClassName('tile half')[i].id = i;
+	// 	features.getElementsByClassName('tile half')[i].onclick = function(){
+	// 		console.log(container[3])
+	// 	}
+	// }
 
 	/**
 	 * Add a click handler to hide the popup.
@@ -238,7 +250,7 @@ $(document).ready(function () {
 		addDrawInteraction();
 	};
 
-	
+
 
 
 	function addModifyInteraction() {
@@ -282,10 +294,10 @@ $(document).ready(function () {
 			$("#disID").html(feature.get("initialDate"));
 			$("#disED").html(feature.get("entryDate"));
 			$("#disFD").html(feature.get("foundDate"));
-				
-			
+
+
 			// ...listen for changes and save them
-			
+
 			// listen to pressing of delete key, then delete selected features
 			$(document).on('keyup', function (event) {
 				if (event.keyCode == 46) {
@@ -549,6 +561,8 @@ var myJSONString = JSON.stringify(data);
 		return false;
 		$('#files').empty();
 	};
+
+
 	//independent function called above
 	function getTodayDate() {
 		var today = new Date();
@@ -742,7 +756,7 @@ var myJSONString = JSON.stringify(data);
 				addModifyInteraction();
 				$("#controlpanel").hide();
 				console.log("hiding");
-				
+
 			} else {
 				if (data.responseText === "1") {
 					$("#login").hide();
@@ -755,5 +769,3 @@ var myJSONString = JSON.stringify(data);
 	}
 
 })
-
-

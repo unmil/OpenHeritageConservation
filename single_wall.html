@@ -2,20 +2,27 @@
 <html>
 
 <head>
-	<!-- Testing -->
 	<meta charset="utf-8">
+
 	<script src="OpenLayers3/build/ol.js" type="text/javascript"></script>
 	<script src="js/jquery/jquery.min.js" type="text/javascript"></script>
 	<script src="js/jquery/jquery.widget.min.js"></script>
 	<script src="js/metro/metro-loader.js"></script>
 	<script src="js/docs.js"></script>
+
 	<link rel="stylesheet" href="css/metro-bootstrap.css">
+
+	<!-- Latest compiled and minified CSS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+
 	<link rel="stylesheet" href="css/docs.css">
 	<link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
+
 	<script src="js/colorbrewer.js" type="text/javascript"></script>
 
-        <!-- this is the script for adding and modifying features on a base layer image -->
+	<!-- Main script to manage features on the wall -->
 	<script src="js/conservation-feature-mgr.js" type="text/javascript"></script>
+
 	<script>
 		(function (i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;
@@ -31,8 +38,25 @@
 		ga('create', 'UA-56887702-1', 'auto');
 		ga('send', 'pageview');
 	</script>
+
 	<link rel="stylesheet" href="OpenLayers3/css/ol.css" type="text/css">
+
 	<style type="text/css">
+		#features-border{
+			border-bottom: solid;
+			border-bottom-color: lightgrey;
+			border-width: thin;
+			overflow: auto;
+			height: 15em;
+			width: 214px;
+			padding-left: 2px;
+		}
+
+		#features-list{
+			height: 15em;
+			width: 196px;
+		}
+
 		.map {
 			padding-top: 5px;
 			width: 100%;
@@ -71,17 +95,57 @@
 		#controlpanel {
 			width: 230px;
 			top: 50px;
-			right: 0px;
+			left: 0px;
 			position: fixed;
-			background-color: white;
+			background-color: white	;
 		}
+
+		#switchWalls {
+			top: 42px;
+			position: fixed;
+		    color: white;
+		    right: -2px;
+		}
+
+		#panel-type{
+			float: left;
+			width: 50%;
+		}
+
+		#feature-name{
+			float: left;
+			width: 50%;
+			border-bottom: 0px;
+		}
+
+		#button{
+			padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		}
+
+		#left-right-switch{
+			left: 0px;
+		}
+
+		.icon{
+			width: inherit;
+			height: inherit;
+		}
+
 	</style>
+
 	<title>Single Map</title>
 </head>
 
 <body class="metro">
 	<header class="bg-emerald" data-load="header.html"></header>
 	<div id="map" class="map"></div>
+
 	<div id="popup-content">	<a href="#" id="popup-closer" class="ol-popup-closer ">X</a>
 		<form id="form" action="#" method="post">
 			<legend>Add Information</legend>
@@ -150,8 +214,10 @@
 			<!-- 	<button href="#"id="yes" class="button">yes</button> -->	<a href="#" class="button" id="cancel" style="background-color: #247b04;color: white;">Cancel</a>
 		</form>
 	</div>
+
 	<div id="pop">	<span id="diswall"></span>
 		<lable class="strong">Type:</lable><span id="distype"></span>
+
 		<div id="forpigment" style="display:none">
 			<lable class="strong">Color:</lable><span id="discolor"></span>
 			<lable class="strong">Actor:</lable><span id="disactor"></span>
@@ -159,7 +225,7 @@
 		<lable class="strong">Initial Date:</lable><span id="disID"></span></br>
 		<lable class="strong">Found Date:</lable><span id="disFD"></span></br>
 		<lable class="strong">Entry Date:</lable><span id="disED"></span>
-			
+
 		<br>
 		<div id="disfiles">
 			<lable class="strong">Attachment:</lable>
@@ -167,8 +233,138 @@
 			<a id="disfile" href="#"></a>
 		</div>
 	</div>
-	<div class="panel" data-role="panel" id="controlpanel">
-		<div class="panel-header bg-darkRed fg-white">Action</div>
+
+	<!-- Buttons for switching wall left and right -->
+	<div id="switchWalls" class="btn-group">
+	  <button id="button" type="button"><</button>
+	  <button id="button" type="button">></button>
+	</div>
+
+ 	<div class="panel" data-role="panel" id="controlpanel">
+
+			<!-- Add button -->
+		  <button type="button" class="panel-header">
+		  	<span class="glyphicon glyphicon-plus" 	aria-hidden="true"></span>
+		  </button>
+
+			<!-- Search button -->
+		  <button type="button" id="button">
+		  	<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+		  </button>
+
+		<!-- Panel to determine what happen when user slided down -->
+	 	<div class="panel-content" style="display: block; overflow-y:auto;">
+	 		<form id="form" action="#" method="post">
+			<legend id="panel-type">Type: </legend>
+			<span id="feature-name"></span>
+			<script>function showName(elem){ document.getElementById('feature-name').innerHTML = elem.getAttribute('value') }</script>
+
+
+			<div class="input-control select size2 type-control" id="type-control">
+
+
+			<!-- This will be a scroll view -->
+			<div id="features-border">
+			<div id="features-list">
+				<div class="tile half" onclick="showName(this)" value="Incised-lines"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/incised-lines-glyph.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Charcoal-Pigment"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/charcoal-pigment-glyph.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Blue-Azurite-Pigment"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/blue-azurite-pigment.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Historial-Graffiti"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/historical-graffiti-glyph.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Nail"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/nail-glyph.gif"></div>
+			</div>
+
+				<!-- <select id="type">
+					<option value="Select" id="option_default">Select</option>
+					<option class="type_option" value="Wood">Wood</option>
+					<option class="type_option" value="Nail">Nail</option>
+					<option class="type_option" value="Graffiti">Historical Graffiti</option>
+					<option class="type_option" value="Incised Lines">Incised Lines</option>
+					<option class="type_option" value="Efflorescence">Efflorescence</option>
+					<option class="type_option" value="Pigment">Pigment</option>
+					<option class="type_option" value="Mortar Sample">Mortar Sample</option>
+					<option class="type_option" value="Stone Sample">Stone Sample</option>
+				</select> -->
+
+
+			</div>
+		</div>
+
+			<div class="input-control select size2 color-control" style="display:none">
+				<lable>Color</lable>
+				<select id="color">
+					<option value="RedOchre">Red - Ochre</option>
+					<option value="RedLead">Red - Lead</option>
+					<option value="RedVermillion">Red - Vermillion</option>
+					<option value="WhiteCalcite">White - Calcite</option>
+					<option value="YellowOchre">Yellow - Ochre</option>
+					<option value="GreenEarth">Green - Earth</option>
+					<option value="Azurite">Blue - Azurite</option>
+					<option value="Smalt">Blue - Smalt</option>
+					<option value="PrussianBlue">Blue - Prussian</option>
+					<option value="Charcoal">Charcoal</option>
+					<option value="CopperLeaf">CopperLeaf</option>
+					<option value="CopperGreen">Copper Green</option>
+				</select>
+			</div>
+			<br>
+			<div class="input-control select size2 actor-control" style="display:none">
+				<lable>Actor</lable>
+				<select id="actor">
+					<option value="US Army">US Army</option>
+					<option value="Spanish Colonials">Spanish Colonials</option>
+				</select>
+			</div>
+			<br>
+			<br> <!-- <span class="btn btn-success fileinput-button">
+									 	<i class="glyphicon glyphicon-plus"></i>
+									 		<span>Add files...</span>
+			The file input field used as target for the file upload widget
+			<input id="fileupload" type="file" name="files[]" multiple>
+			</span> -->
+			<!-- The global progress bar -->
+			<!-- The container for the uploaded files -->
+			<div id="files" class="files"></div>
+			<br>
+			<lable>Created at</lable>
+			<div class="input-control text" data-role="datepicker" data-date="1900-11-01" data-format="mm/dd/yyyy" data-position="top|bottom" data-effect="none|slide|fade" style="width: 60%">
+				<input type="text" id="initialDate">	<span class="btn-date"></span>
+			</div>
+			<lable>Found at</lable>
+			<div class="input-control text" data-role="datepicker" data-date="2014-11-01" data-format="mm/dd/yyyy" data-position="top|bottom" data-effect="none|slide|fade" style="width: 60%">
+				<input type="text" id="foundDate"><span class="btn-date"></span>
+			</div>
+			<label>Notes</label>
+			<div class="input-control textarea success-state " data-role="input-control">
+				<textarea id="note"></textarea>
+				<a href="#"><label style="text-align: center;">Additioanl File</label></a>
+			</div>
+			<!-- <a href="#" class="button" id="yes" style="background-color: #247b04;color: white;">Submit</a> -->
+			<div style="text-align:center;"><a href="#" class="button" id="yes" style="width:100px; height:50px; line-height: 40px;">Submit</a></div>
+			<!-- 	<button href="#"id="yes" class="button">yes</button> -->
+
+
+
+		</form>
+	 	</div>
+
+			<select id="data_type" style="display: none"></select>
+			<!-- hide delete all link to avoid easy access
+			<div id="delete" style="text-decoration:underline;cursor:pointer">Delete all features</div>-->
+	 </div>
+
+
+
+
+
+<!--
+	<div id="switchWalls" class="btn-group" role="group" aria-label="...">
+	  <button id="button" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	  <button id="button" type="button"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
+	</div>
+ -->
+	 <!-- <div class="panel" data-role="panel" id="controlpanel"> -->
+		<!-- <div class="panel-header bg-darkRed fg-white">Action</div>
+
 		<div class="panel-content" style="display: block;"> <span id="mouse-position">&nbsp;</span>
 			<div>
 				<label>Interaction type: &nbsp;</label>
@@ -196,9 +392,15 @@
 				<option value="GeoJSON" selected>GeoJSON</option>
 				<option value="KML">KML</option>
 				<option value="GPX">GPX</option>
-			</select>
-			<!-- hide delete all link to avoid easy access -->
-			<!-- <div id="delete" style="text-decoration:underline;cursor:pointer">Delete all features</div> --></div>
+			</select> -->
+			<!-- hide delete all link to avoid easy access
+			<!-- <div id="delete" style="text-decoration:underline;cursor:pointer">Delete all features</div> -->
+		<!-- </div>
+	</div> -->
+
+
+
+
 		<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 		<script src="js/fileUpload/vendor/jquery.ui.widget.js"></script>
 		<!-- The Load Image plugin is included for the preview images and image resizing functionality -->

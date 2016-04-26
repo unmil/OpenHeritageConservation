@@ -8416,8 +8416,7 @@ width: 940px !important;
   font-size: 2.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.01em;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 2.2rem;
+  color: rgba(0, 0, 0, 0.6);  
   line-height: 2.2rem;
   color: #1d1d1d;
   cursor: default;
@@ -8428,6 +8427,7 @@ width: 940px !important;
   padding: 10px;
 }
 .metro [data-role=panel] .panel-header {
+  width: 120px;
   cursor: pointer;
 }
 .metro [data-role=panel] .panel-header:after {
