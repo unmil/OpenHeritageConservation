@@ -52,6 +52,18 @@ $(document).ready(function () {
 	var typeHasColor = ["Pigment", 'Efflorescence'];
 	var typeHasPercentage = ["Humidity"];
 
+	var features = document.getElementById('features-list');
+	var features_list = features.getElementsByClassName('tile half')
+
+	// var container = [];
+	// for(var i = 0; i < features.getElementsByClassName('tile half').length; i++){
+	// 	var feature_value = features.getElementsByClassName('tile half')[i].getAttribute('value');
+	// 	container[i] = feature_value;
+	// 	features.getElementsByClassName('tile half')[i].id = i;
+	// 	features.getElementsByClassName('tile half')[i].onclick = function(){
+	// 		console.log(container[3])
+	// 	}
+	// }
 
 	/**
 	 * Add a click handler to hide the popup.
@@ -90,7 +102,7 @@ $(document).ready(function () {
 		crossOrigin: crossOrigin,
 		projection: proj,
 	});
-	
+
 	var vector_layer = new ol.layer.Vector({
 		name: 'my_vectorlayer',
 		source: new ol.source.GeoJSON({
@@ -549,6 +561,8 @@ var myJSONString = JSON.stringify(data);
 		return false;
 		$('#files').empty();
 	};
+
+
 	//independent function called above
 	function getTodayDate() {
 		var today = new Date();

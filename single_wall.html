@@ -100,28 +100,22 @@
 			background-color: white	;
 		}
 
-		/*#addButton {
-			width: 100px;
-			top: 40px;
-			left: -2px;
-			position: fixed;
-			background-color: #4CAF50;
-			border: none;
-		    color: white;
-		    padding: 15px 32px;
-		    text-align: center;
-		    text-decoration: none;
-		    display: inline-block;
-		    font-size: 16px;
-		    margin: 4px 2px;
-		    cursor: pointer;
-		}	*/
-
 		#switchWalls {
 			top: 42px;
 			position: fixed;
 		    color: white;
 		    right: -2px;
+		}
+
+		#panel-type{
+			float: left;
+			width: 50%;
+		}
+
+		#feature-name{
+			float: left;
+			width: 50%;
+			border-bottom: 0px;
 		}
 
 		#button{
@@ -136,7 +130,11 @@
 
 		#left-right-switch{
 			left: 0px;
+		}
 
+		.icon{
+			width: inherit;
+			height: inherit;
 		}
 
 	</style>
@@ -219,6 +217,7 @@
 
 	<div id="pop">	<span id="diswall"></span>
 		<lable class="strong">Type:</lable><span id="distype"></span>
+
 		<div id="forpigment" style="display:none">
 			<lable class="strong">Color:</lable><span id="discolor"></span>
 			<lable class="strong">Actor:</lable><span id="disactor"></span>
@@ -254,9 +253,12 @@
 		  </button>
 
 		<!-- Panel to determine what happen when user slided down -->
-	 	<div class="panel-content" style="display: block;">
+	 	<div class="panel-content" style="display: block; overflow-y:auto;">
 	 		<form id="form" action="#" method="post">
-			<legend>Type</legend>
+			<legend id="panel-type">Type: </legend>
+			<span id="feature-name"></span>
+			<script>function showName(elem){ document.getElementById('feature-name').innerHTML = elem.getAttribute('value') }</script>
+
 
 			<div class="input-control select size2 type-control" id="type-control">
 
@@ -264,46 +266,11 @@
 			<!-- This will be a scroll view -->
 			<div id="features-border">
 			<div id="features-list">
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
-				<div class="tile half"></div>
+				<div class="tile half" onclick="showName(this)" value="Incised-lines"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/incised-lines-glyph.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Charcoal-Pigment"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/charcoal-pigment-glyph.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Blue-Azurite-Pigment"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/blue-azurite-pigment.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Historial-Graffiti"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/historical-graffiti-glyph.gif"></div>
+				<div class="tile half" onclick="showName(this)" value="Nail"><img src="https://raw.githubusercontent.com/unmil/OpenHeritageConservation/master/images/icons/nail-glyph.gif"></div>
 			</div>
 
 				<!-- <select id="type">
